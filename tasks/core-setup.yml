@@ -1,16 +1,25 @@
-- name: Install System Packages 1 (build-essential, cmake, pkg-config, pthread)
+- name: Install System Packages 1 (build-essential, cmake, pkg-config)
   become: true
   apt:
-    name: ["build-essential", "cmake", "pkg-config", "libpthread-stubs0-dev"]
+    name: ["build-essential", "cmake", "pkg-config"]
   tags:
     - install
     - neovim
     - core
 
-- name: Install System Packages 2 (lua, unzip, libtool, libtool-bin, gettext)
+- name: Install System Packages 2 (unzip, libtool, libtool-bin, gettext)
   become: true
   apt:
-    name: [ "lua5.1", "unzip", "libtool", "libtool-bin", "gettext"]
+    name: [ "unzip", "libtool", "libtool-bin", "gettext"]
+  tags:
+    - install
+    - neovim
+    - core
+
+- name: Install System Packages 3 (the rest)
+  become: true
+  apt:
+    name: [ "curl", "htop", "golang", "ninja-build", "g++", "autoconf", "automake", "doxygen" ]
   tags:
     - install
     - neovim
