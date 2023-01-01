@@ -39,8 +39,13 @@
     - install
     - node
 
+- name: Define N prefix
+  shell: N_PREFIX=~/.local
+  tags:
+  - install
+  - node
+
 - name: Install correct version of Node
-  become: true
   shell: n 18
   tags:
     - install
