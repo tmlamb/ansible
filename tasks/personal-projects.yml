@@ -1,0 +1,22 @@
+- name: Probable Pitchers exists
+  stat:
+    path: "{{ personal }}/probable-pitchers"
+  register: probable-pitchers
+  tags:
+    - install
+    - personal-project
+- name: Personal Project Probable Pitchers
+  ansible.builtin.git:
+    repo: 'git@github.com:tmlamb/probable-pitchers.git'
+    bare: true
+    dest: "{{ personal }}/probable-pitchers"
+  tags:
+    - install
+    - personal-project
+  when: probable-pitchers.stat.exists == False
+- name: Probable Pitchers Main Checkout
+  shell: cd ~/personal/probable-pitchers && git fetch && git worktree add main main
+  tags:
+    - install
+    - personal-project
+  when: probable-pitchers.stat.exists == False
