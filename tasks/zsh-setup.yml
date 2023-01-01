@@ -2,12 +2,17 @@
   become: true
   apt: name=zsh
   tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
+
+- name: Find zsh install location
+  shell: which zsh
+  register: which_zsh
+  tags: *tags_for_zsh_tasks
     
 - name: Change shell to zsh
   become: true
   user:
     name: tom
-    shell: $(which zsh)
+    shell: "{{ which_zsh }}" 
       #shell: chsh -s $(which zsh)
   tags: *tags_for_zsh_tasks
 
