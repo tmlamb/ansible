@@ -39,14 +39,10 @@
     - install
     - node
 
-- name: Define N prefix
-  shell: export N_PREFIX=~/.local
-  tags:
-  - install
-  - node
-
 - name: Install correct version of Node
-  shell: n 18
+  shell: N_PREFIX=~/.local n 18
+  environment:
+    PATH: "~/.local/.npm-global/bin:{{ ansible_env.PATH }}"
   tags:
     - install
     - node
