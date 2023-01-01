@@ -5,6 +5,7 @@
     
 - name: Change shell to zsh
   become: true
+  become_user: tom
   shell: chsh -s $(which zsh)
   tags: *tags_for_zsh_tasks
 
