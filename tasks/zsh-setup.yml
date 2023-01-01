@@ -12,7 +12,7 @@
   become: true
   user:
     name: tom
-    shell: "{{ which_zsh }}" 
+    shell: "{{ which_zsh.stdout }}" 
       #shell: chsh -s $(which zsh)
   tags: *tags_for_zsh_tasks
 
