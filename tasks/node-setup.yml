@@ -40,7 +40,7 @@
     - node
 
 - name: Define N prefix
-  shell: N_PREFIX=~/.local
+  shell: export N_PREFIX=~/.local
   tags:
   - install
   - node
