@@ -40,9 +40,7 @@
     - node
 
 - name: Install correct version of Node
-  shell: N_PREFIX=~/.local n 18
-  environment:
-    PATH: "~/.local/.npm-global/bin:{{ ansible_env.PATH }}"
+  shell: N_PREFIX=~/.local ~/.local/.npm-global/bin/n 18
   tags:
     - install
     - node
