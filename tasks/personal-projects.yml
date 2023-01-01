@@ -1,7 +1,7 @@
 - name: Probable Pitchers exists
   stat:
     path: "{{ personal }}/probable-pitchers"
-  register: probable-pitchers
+  register: probablepath
   tags:
     - install
     - personal-project
@@ -13,10 +13,10 @@
   tags:
     - install
     - personal-project
-  when: probable-pitchers.stat.exists == False
+  when: probablepath.stat.exists == False
 - name: Probable Pitchers Main Checkout
   shell: cd ~/personal/probable-pitchers && git fetch && git worktree add main main
   tags:
     - install
     - personal-project
-  when: probable-pitchers.stat.exists == False
+  when: probablepath.stat.exists == False
