@@ -19,10 +19,62 @@
 - name: Install System Packages 3 (the rest)
   become: true
   apt:
-    name: [ "curl", "htop", "golang", "ninja-build", "g++", "autoconf", "automake", "doxygen" ]
+    name: [ "curl", "htop", "golang", "ninja-build", "g++", "autoconf", "automake", "doxygen", "gir1.2-gtop-2.0", "lm-sensors", "jq" ]
   tags:
     - install
     - neovim
+    - core
+
+- name: Download Vitals
+  shell: curl -LO --output-dir ~/Downloads $(curl -s https://api.github.com/repos/corecoding/Vitals/releases/latest | jq -r ".assets[] | select(.name | test(\"vitals.zip\")) | .browser_download_url")
+  tags:
+    - install
+    - core
+
+- name: Unpack Vitals
+  shell: mkdir -p /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com && unzip -o ~/Downloads/vitals.zip -d "$_" 
+  tags:
+    - install
+    - core
+
+- name: Configure Vitals
+  vars:
+    gsettings_cmd: gsettings --schemadir /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com/schemas set org.gnome.shell.extensions.vitals
+  shell: |
+    "{{ gsettings_cmd }} alphabetize true"
+    "{{ gsettings_cmd }} battery-slot 0"
+    "{{ gsettings_cmd }} fixed-widths true"
+    "{{ gsettings_cmd }} hide-icons false"
+    "{{ gsettings_cmd }} hide-zeros false"
+    "{{ gsettings_cmd }} hot-sensors \"['_memory_usage_', '_processor_usage_', '__network-rx_max__']\""
+    "{{ gsettings_cmd }} include-public-ip true"
+    "{{ gsettings_cmd }} include-static-info false"
+    "{{ gsettings_cmd }} memory-measurement 1"
+    "{{ gsettings_cmd }} monitor-cmd 'gnome-system-monitor'"
+    "{{ gsettings_cmd }} network-speed-format 0"
+    "{{ gsettings_cmd }} position-in-panel 2"
+    "{{ gsettings_cmd }} show-battery false"
+    "{{ gsettings_cmd }} show-fan false"
+    "{{ gsettings_cmd }} show-memory true"
+    "{{ gsettings_cmd }} show-network true"
+    "{{ gsettings_cmd }} show-processor true"
+    "{{ gsettings_cmd }} show-storage false"
+    "{{ gsettings_cmd }} show-system false"
+    "{{ gsettings_cmd }} show-temperature false"
+    "{{ gsettings_cmd }} show-voltage false"
+    "{{ gsettings_cmd }} storage-measurement 1"
+    "{{ gsettings_cmd }} storage-path '/'"
+    "{{ gsettings_cmd }} unit 0"
+    "{{ gsettings_cmd }} update-time 5"
+    "{{ gsettings_cmd }} use-higher-precision false"
+  tags:
+    - install
+    - core
+
+- name: Enable Gnome extensions
+  shell: gsettings set org.gnome.shell disable-user-extensions false
+  tag:
+    - install
     - core
 
 - name: gsettings keybindings
@@ -36,3 +88,6 @@
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-7 "['<Super>7']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-8 "['<Super>8']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-9 "['<Super>9']"
+  tags:
+    - install
+    - core
