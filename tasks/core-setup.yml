@@ -81,6 +81,12 @@
     - install
     - core
 
+- name: Restart Gnome shell
+  shell: gnome-shell -r &
+  tags:
+    - install
+    - core
+
 - name: Enable Vitals 
   shell: gnome-extensions enable Vitals@CoreCoding.com
   tags:
