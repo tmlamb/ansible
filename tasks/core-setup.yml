@@ -82,7 +82,7 @@
       #    - core
 
 - name: Restart Gnome shell
-  shell: gnome-extensions enable Vitals@CoreCoding.com
+  shell: killall -HUP gnome-shell
   tags:
     - install
     - core
