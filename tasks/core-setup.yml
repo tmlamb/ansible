@@ -47,45 +47,45 @@
     - install
     - core
 
-- name: Configure Vitals
-  vars:
-    gsettings_cmd: gsettings --schemadir /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com/schemas set org.gnome.shell.extensions.vitals
-  shell: |
-    {{ gsettings_cmd }} alphabetize true
-    {{ gsettings_cmd }} battery-slot 0
-    {{ gsettings_cmd }} fixed-widths true
-    {{ gsettings_cmd }} hide-icons false
-    {{ gsettings_cmd }} hide-zeros false
-    {{ gsettings_cmd }} hot-sensors \"['_memory_usage_', '_processor_usage_', '__network-rx_max__']\"
-    {{ gsettings_cmd }} include-public-ip true
-    {{ gsettings_cmd }} include-static-info false
-    {{ gsettings_cmd }} memory-measurement 1
-    {{ gsettings_cmd }} monitor-cmd 'gnome-system-monitor'
-    {{ gsettings_cmd }} network-speed-format 0
-    {{ gsettings_cmd }} position-in-panel 2
-    {{ gsettings_cmd }} show-battery false
-    {{ gsettings_cmd }} show-fan false
-    {{ gsettings_cmd }} show-memory true
-    {{ gsettings_cmd }} show-network true
-    {{ gsettings_cmd }} show-processor true
-    {{ gsettings_cmd }} show-storage false
-    {{ gsettings_cmd }} show-system false
-    {{ gsettings_cmd }} show-temperature false
-    {{ gsettings_cmd }} show-voltage false
-    {{ gsettings_cmd }} storage-measurement 1
-    {{ gsettings_cmd }} storage-path '/'
-    {{ gsettings_cmd }} unit 0
-    {{ gsettings_cmd }} update-time 5
-    {{ gsettings_cmd }} use-higher-precision false
-  tags:
-    - install
-    - core
-
-      #- name: Restart Gnome shell
-      #  shell: gnome-shell -r &
+      #- name: Configure Vitals
+      #  vars:
+      #    gsettings_cmd: gsettings --schemadir /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com/schemas set org.gnome.shell.extensions.vitals
+      #  shell: |
+      #    {{ gsettings_cmd }} alphabetize true
+      #    {{ gsettings_cmd }} battery-slot 0
+      #    {{ gsettings_cmd }} fixed-widths true
+      #    {{ gsettings_cmd }} hide-icons false
+      #    {{ gsettings_cmd }} hide-zeros false
+      #    {{ gsettings_cmd }} hot-sensors "['_memory_usage_', '_processor_usage_', '__network-rx_max__']"
+      #    {{ gsettings_cmd }} include-public-ip true
+      #    {{ gsettings_cmd }} include-static-info false
+      #    {{ gsettings_cmd }} memory-measurement 1
+      #    {{ gsettings_cmd }} monitor-cmd 'gnome-system-monitor'
+      #    {{ gsettings_cmd }} network-speed-format 0
+      #    {{ gsettings_cmd }} position-in-panel 2
+      #    {{ gsettings_cmd }} show-battery false
+      #    {{ gsettings_cmd }} show-fan false
+      #    {{ gsettings_cmd }} show-memory true
+      #    {{ gsettings_cmd }} show-network true
+      #    {{ gsettings_cmd }} show-processor true
+      #    {{ gsettings_cmd }} show-storage false
+      #    {{ gsettings_cmd }} show-system false
+      #    {{ gsettings_cmd }} show-temperature false
+      #    {{ gsettings_cmd }} show-voltage false
+      #    {{ gsettings_cmd }} storage-measurement 1
+      #    {{ gsettings_cmd }} storage-path '/'
+      #    {{ gsettings_cmd }} unit 0
+      #    {{ gsettings_cmd }} update-time 5
+      #    {{ gsettings_cmd }} use-higher-precision false
       #  tags:
       #    - install
       #    - core
+
+- name: Restart Gnome shell
+  shell: gnome-shell -r
+  tags:
+    - install
+    - core
 
 - name: Enable Vitals 
   shell: gnome-extensions enable Vitals@CoreCoding.com
