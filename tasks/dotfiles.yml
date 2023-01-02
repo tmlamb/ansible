@@ -17,6 +17,12 @@
     - install
     - dotfiles
     - stow
+- name: Remove existing zshrc
+  shell: rm $HOME/.zshrc
+  tags:
+    - install
+    - dotfiles
+    - stow
 - name: Stow dotfiles
   shell: cd $HOME/.dotfiles && ./stowdirs
   tags:
