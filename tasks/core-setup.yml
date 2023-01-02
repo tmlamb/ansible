@@ -82,7 +82,7 @@
       #    - core
 
 - name: Restart Gnome shell
-  shell: gnome-shell -r
+  shell: busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' > /dev/null 2>&1
   tags:
     - install
     - core
