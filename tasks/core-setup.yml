@@ -82,7 +82,7 @@
       #    - core
 
 - name: Restart Gnome shell
-  shell: killall -HUP gnome-shell
+  shell: killall -HUP gnome-shell --wait
   tags:
     - install
     - core
