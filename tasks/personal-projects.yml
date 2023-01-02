@@ -8,6 +8,7 @@
 - name: Personal Project Probable Pitchers
   ansible.builtin.git:
     repo: 'git@github.com:tmlamb/probable-pitchers.git'
+    accept_newhostkey: true
     bare: true
     dest: "{{ personal }}/probable-pitchers"
   tags:
