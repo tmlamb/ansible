@@ -82,7 +82,7 @@
       #    - core
 
 - name: Restart Gnome shell
-  shell: busctl --user call org.gnome.Shell /org/gnome/Shell org.gnome.Shell Eval s 'Meta.restart("Restarting…")' > /dev/null 2>&1
+  shell: gnome-extensions enable Vitals@CoreCoding.com
   tags:
     - install
     - core
