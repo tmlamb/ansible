@@ -73,7 +73,7 @@
 
 - name: Enable Gnome extensions
   shell: gsettings set org.gnome.shell disable-user-extensions false
-  tag:
+  tags:
     - install
     - core
 
