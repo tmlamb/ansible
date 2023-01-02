@@ -32,7 +32,11 @@
     - core
 
 - name: Unpack Vitals
-  shell: mkdir -p /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com && unzip -o ~/Downloads/vitals.zip -d "$_" 
+  vars:
+    vitals_dir: /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com 
+  shell: |
+    mkdir -p {{ vitals_dir }} \
+    && unzip -o ~/Downloads/vitals.zip -d {{ vitals_dir }}
   tags:
     - install
     - core
