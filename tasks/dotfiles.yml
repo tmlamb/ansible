@@ -29,3 +29,10 @@
     - install
     - dotfiles
     - stow
+- name: Bootstrap neovim packer plugins
+  shell: nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+  tags:
+    - install
+    - dotfiles
+    - stow
+    - neovim
