@@ -19,91 +19,20 @@
 - name: Install System Packages 3 (the rest)
   become: true
   apt:
-    name: [ "curl", "htop", "golang", "ninja-build", "g++", "autoconf", "automake", "doxygen", "gir1.2-gtop-2.0", "lm-sensors", "jq" ]
+    name: [ "compton", "curl", "htop", "golang", "lsof", "i3", "ccache", "ninja-build", "g++", "autoconf", "automake", "doxygen", "jq", "dconf-editor", "pavucontrol", "moreutils", "ubuntu-mate-desktop" ]
   tags:
     - install
     - neovim
     - core
 
-- name: Enable Gnome extensions
-  shell: gsettings set org.gnome.shell disable-user-extensions false
+- name: dconf i3
+  shell: dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
   tags:
     - install
     - core
 
-- name: Download Vitals
-  shell: curl -LO --output-dir ~/Downloads $(curl -s https://api.github.com/repos/corecoding/Vitals/releases/latest | jq -r ".assets[] | select(.name | test(\"vitals.zip\")) | .browser_download_url")
-  tags:
-    - install
-    - core
-
-- name: Unpack Vitals
-  vars:
-    vitals_dir: /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com 
-  shell: |
-    mkdir -p {{ vitals_dir }} \
-    && unzip -o ~/Downloads/vitals.zip -d {{ vitals_dir }}
-  tags:
-    - install
-    - core
-
-- name: Configure Vitals
-  vars:
-    gsettings_cmd: gsettings --schemadir /home/tom/.local/share/gnome-shell/extensions/Vitals@CoreCoding.com/schemas set org.gnome.shell.extensions.vitals
-  shell: |
-    {{ gsettings_cmd }} alphabetize true
-    {{ gsettings_cmd }} battery-slot 0
-    {{ gsettings_cmd }} fixed-widths true
-    {{ gsettings_cmd }} hide-icons false
-    {{ gsettings_cmd }} hide-zeros false
-    {{ gsettings_cmd }} hot-sensors "['_memory_usage_', '_processor_usage_', '__network-rx_max__']"
-    {{ gsettings_cmd }} include-public-ip true
-    {{ gsettings_cmd }} include-static-info false
-    {{ gsettings_cmd }} memory-measurement 1
-    {{ gsettings_cmd }} monitor-cmd 'gnome-system-monitor'
-    {{ gsettings_cmd }} network-speed-format 0
-    {{ gsettings_cmd }} position-in-panel 2
-    {{ gsettings_cmd }} show-battery false
-    {{ gsettings_cmd }} show-fan false
-    {{ gsettings_cmd }} show-memory true
-    {{ gsettings_cmd }} show-network true
-    {{ gsettings_cmd }} show-processor true
-    {{ gsettings_cmd }} show-storage false
-    {{ gsettings_cmd }} show-system false
-    {{ gsettings_cmd }} show-temperature false
-    {{ gsettings_cmd }} show-voltage false
-    {{ gsettings_cmd }} storage-measurement 1
-    {{ gsettings_cmd }} storage-path '/'
-    {{ gsettings_cmd }} unit 0
-    {{ gsettings_cmd }} update-time 5
-    {{ gsettings_cmd }} use-higher-precision false
-  tags:
-    - install
-    - core
-
-- name: Restart Gnome shell
-  shell: killall -HUP gnome-shell --wait
-  tags:
-    - install
-    - core
-
-- name: Enable Vitals 
-  shell: gnome-extensions enable Vitals@CoreCoding.com
-  tags:
-    - install
-    - core
-
-- name: gsettings keybindings
-  shell: |
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>Home', '<Super>1']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>4']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>5']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>6']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-7 "['<Super>7']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-8 "['<Super>8']"
-    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-9 "['<Super>9']"
+- name: dconf i3
+  shell: dconf write /org/mate/desktop/background/show-desktop-icons "false"
   tags:
     - install
     - core
