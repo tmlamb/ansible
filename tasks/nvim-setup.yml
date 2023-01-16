@@ -15,7 +15,6 @@
   ansible.builtin.git:
     repo: 'https://github.com/neovim/neovim.git'
     dest: "{{ lookup('env', 'HOME') }}/neovim"
-    version: 'release-0.8'
   tags:
     - install
     - neovim
