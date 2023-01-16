@@ -1,0 +1,20 @@
+- name: Download Dropbox Daemon
+  shell: curl -L --output ~/Downloads/dropbox.tar.gz https://www.dropbox.com/download?plat=lnx.x86_64
+  tags:
+    - install
+    - dropbox
+
+- name: Unpack Dropbox
+  shell: tar xzf ~/Downloads/dropbox.tar.gz -C ~/
+  tags:
+    - install
+    - dropbox
+
+- name: Download Dropbox Script
+  shell: |
+    curl -L --output ~/.local/scripts/dropbox.py https://linux.dropbox.com/packages/dropbox.py \
+    && chmod +x ~/.local/scripts/dropbox.py
+  tags:
+    - install
+    - dropbox
+
