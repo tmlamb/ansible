@@ -12,8 +12,8 @@
 
 - name: Download Dropbox Script
   shell: |
-    curl -L --output ~/.local/scripts/dropbox.py https://linux.dropbox.com/packages/dropbox.py \
-    && chmod +x ~/.local/scripts/dropbox.py
+    curl -L --output ~/.local/bin/dropbox.py https://linux.dropbox.com/packages/dropbox.py \
+    && chmod +x ~/.local/bin/dropbox.py
   tags:
     - install
     - dropbox
