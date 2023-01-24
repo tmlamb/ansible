@@ -1,6 +1,7 @@
 - name: Remove neovim
   become: true
-  shell: rm -rf /home/tom/neovim
+  shell: rm -rf ~/neovim
+  when: ansible_distribution != 'MacOSX'
   tags:
     - install
     - neovim
@@ -15,29 +16,20 @@
   ansible.builtin.git:
     repo: 'https://github.com/neovim/neovim.git'
     dest: "{{ lookup('env', 'HOME') }}/neovim"
+  when: ansible_distribution != 'MacOSX'
   tags:
     - install
     - neovim
 - name: Build neovim
-  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make -j 20"
+  shell: "cd {{ lookup('env', 'HOME') }}/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo"
+  when: ansible_distribution != 'MacOSX'
   tags:
     - install
     - neovim
 - name: Install neovim
   become: true
   shell: "cd {{ lookup('env', 'HOME') }}/neovim && make install"
+  when: ansible_distribution != 'MacOSX'
   tags:
     - install
     - neovim
-      #- name: Neovim Plugin Development 1
-      #  become: true
-      #  apt: name=luarocks
-      #  tags:
-      #    - install
-      #    - neovim
-      #- name: Neovim Plugin Development 2 luacheck
-      #  become: true
-      #  shell: luarocks install luacheck
-      #  tags:
-      #    - install
-      #    - neovim

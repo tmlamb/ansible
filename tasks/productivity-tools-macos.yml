@@ -1,0 +1,24 @@
+- name: Installing Homebrew Cask Packages
+  vars:
+    brew_cask_packages:
+      - fzf
+      - ripgrep
+      - tldr
+      - gimp
+  homebrew_cask:
+    name: "{{ brew_cask_packages }}"
+    state: present
+  register: result
+  until: result is successful
+  when: homebrew_check.stat.exists
+
+- name: Installing Homebrew Packages
+  vars:
+    brew_packages:
+      - tbd
+  homebrew:
+    name: "{{ brew_packages }}"
+    state: present
+  register: result
+  until: result is successful
+  when: homebrew_check.stat.exists

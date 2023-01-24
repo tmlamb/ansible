@@ -29,10 +29,9 @@
   authorized_key:
     user: "{{ lookup('env', 'USER') }}"
     state: present
-      #key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa.pub"
     key: '{{ item }}'
   with_file:
-  - /home/tom/.ssh/id_rsa.pub
+  - ~/.ssh/id_rsa.pub
   tags:
     - dotfiles
     - install
