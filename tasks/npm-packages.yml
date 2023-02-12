@@ -33,3 +33,17 @@
   tags:
     - install
     - node
+- name: Install Expo CLI
+  npm:
+    name: expo-cli
+    global: yes
+  tags:
+    - install
+    - node
+- name: Install EAS CLI
+  npm:
+    name: eas-cli
+    global: yes
+  tags:
+    - install
+    - node
