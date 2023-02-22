@@ -21,3 +21,27 @@
     - install
     - personal-project
   when: probablepath.stat.exists == False
+
+- name: Activity Log Tracker exists
+  stat:
+    path: "{{ personal }}/activity-log-tracker"
+  register: altpath
+  tags:
+    - install
+    - personal-project
+- name: Personal Activity Log Tracker
+  ansible.builtin.git:
+    repo: 'git@github.com:tmlamb/activity-log-tracker.git'
+    accept_newhostkey: true
+    bare: true
+    dest: "{{ personal }}/activity-log-tracker"
+  tags:
+    - install
+    - personal-project
+  when: altpath.stat.exists == False
+- name: Activity Log Tracker Main Checkout
+  shell: cd ~/personal/activity-log-tracker && git fetch && git worktree add main main
+  tags:
+    - install
+    - personal-project
+  when: altpath.stat.exists == False

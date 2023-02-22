@@ -25,8 +25,8 @@
       - include: tasks/personal-projects.yml
       when: ansible_distribution != 'MacOSX'
     - block:
-      - include: tasks/core-setup-macos.yml
-      - include: tasks/productivity-tools-macos.yml
+      - include: tasks-macos/core-setup-macos.yml
+      - include: tasks-macos/productivity-tools-macos.yml
       when: ansible_distribution == 'MacOSX'
     - block:
       - include: tasks/node-setup.yml
