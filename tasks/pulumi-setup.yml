@@ -1,0 +1,5 @@
+- name: Download and run Pulumi install script
+  shell: curl -fsSL https://get.pulumi.com | sh
+  tags:
+    - install
+    - pulumi

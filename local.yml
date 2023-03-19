@@ -5,7 +5,6 @@
     personal: "{{ lookup('env', 'HOME') }}/personal"
   pre_tasks:
   - name: Update Apt
-    when: ansible_distribution != 'MacOSX'
     become: true
     apt:
       force_apt_get: true
@@ -23,14 +22,9 @@
       - include: tasks/dropbox-setup.yml
       - include: tasks/productivity-tools.yml
       - include: tasks/personal-projects.yml
-      when: ansible_distribution != 'MacOSX'
-    - block:
-      - include: tasks-macos/core-setup-macos.yml
-      - include: tasks-macos/productivity-tools-macos.yml
-      when: ansible_distribution == 'MacOSX'
-    - block:
       - include: tasks/node-setup.yml
       - include: tasks/npm-packages.yml
       - include: tasks/zsh-setup.yml
       - include: tasks/nvim-setup.yml
       - include: tasks/dotfiles.yml
+      - include: tasks/pulumi-setup.yml
