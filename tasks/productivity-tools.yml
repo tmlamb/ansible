@@ -1,7 +1,23 @@
 - name: Install packages
   become: true
   apt:
-    name: [ "tmux", "wireshark", "fzf", "gimp", "xclip", "screenkey", "tldr", "ripgrep", "keepassxc", "openscad", "wireguard" ]
+    name: [ "tmux", "wireshark", "fzf", "gimp", "xclip", "screenkey", "tldr", "ripgrep", "keepassxc", "openscad", "wireguard", "fd-find" ]
+  tags:
+    - install
+    - productivity
+
+- name: Capture location of fdfind
+  command: "which fdfind"
+  register: which_fdfind
+  tags:
+    - install
+    - productivity
+
+- name: Link fd to fdfind
+  file:
+    src: "{{ which_fdfind.stdout }}"
+    dest: "~/.local/bin/fd"
+    state: link
   tags:
     - install
     - productivity

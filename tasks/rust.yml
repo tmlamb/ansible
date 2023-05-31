@@ -1,0 +1,5 @@
+- name: Download and run Rust install script
+  shell: curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+  tags:
+    - install
+    - rust

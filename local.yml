@@ -13,6 +13,8 @@
     tags:
       - install
       - core
+  - include_vars: user_vars.yml
+  - debug: msg="Hello, {{ name }}!"
   tasks:
     - block:
       - include: tasks/ssh.yml
@@ -20,6 +22,7 @@
       - include: tasks/core-setup.yml
       - include: tasks/slack-setup.yml
       - include: tasks/dropbox-setup.yml
+      - include: tasks/kubectl-setup.yml
       - include: tasks/productivity-tools.yml
       - include: tasks/personal-projects.yml
       - include: tasks/node-setup.yml
