@@ -56,7 +56,7 @@
     - node
 - name: Install tailwindlsp
   npm:
-    name: @tailwindcss/language-server
+    name: '@tailwindcss/language-server'
     global: yes
   tags:
     - install
