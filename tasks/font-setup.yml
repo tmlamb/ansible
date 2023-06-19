@@ -1,0 +1,26 @@
+- name: ensure fonts directory
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    state: directory
+  tags:
+    - install
+    - fonts
+
+- name: Meslo exists
+  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/MesloLGS*"
+  register: meslo_exists
+  ignore_errors: yes
+  tags:
+    - install
+    - fonts
+
+- name: Download Meslo
+  when: meslo_exists is failed
+  shell: |
+    curl --create-dirs -Lo ~/.fonts/MesloLGS%20NF%20Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    && curl --create-dirs -Lo ~/.fonts/MesloLGS%20NF%20Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    && curl --create-dirs -Lo ~/.fonts/MesloLGS%20NF%20Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+    && curl --create-dirs -Lo ~/.fonts/MesloLGS%20NF%20Bold%20Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+  tags:
+    - install
+    - fonts

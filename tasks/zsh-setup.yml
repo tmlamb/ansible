@@ -30,5 +30,12 @@
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+    update: "yes"
   tags: *tags_for_zsh_tasks
 
+- name: Install pwrlvl10k theme
+  ansible.builtin.git:
+    repo: 'https://github.com/romkatv/powerlevel10k.git'
+    dest: "~/.oh-my-zsh/custom/themes/powerlevel10k"
+    update: "yes"
+  tags: *tags_for_zsh_tasks
