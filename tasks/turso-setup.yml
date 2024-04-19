@@ -1,0 +1,5 @@
+- name: Download and run turso-cli install script
+  shell: curl -sSfL https://get.tur.so/install.sh | bash
+  tags:
+    - install
+    - turso
