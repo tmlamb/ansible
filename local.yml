@@ -17,18 +17,18 @@
   - debug: msg="Hello, {{ name }}!"
   tasks:
     - block:
-      - include: tasks/ssh.yml
-      - include: tasks/font-setup.yml
-      - include: tasks/git-setup.yml
-      - include: tasks/core-setup.yml
-      - include: tasks/slack-setup.yml
-      - include: tasks/dropbox-setup.yml
-      - include: tasks/kubectl-setup.yml
-      - include: tasks/productivity-tools.yml
-      - include: tasks/personal-projects.yml
-      - include: tasks/node-setup.yml
-      - include: tasks/npm-packages.yml
-      - include: tasks/zsh-setup.yml
-      - include: tasks/nvim-setup.yml
-      - include: tasks/dotfiles.yml
-      - include: tasks/pulumi-setup.yml
+      - include_tasks: tasks/ssh.yml
+      - include_tasks: tasks/font-setup.yml
+      - include_tasks: tasks/git-setup.yml
+      - include_tasks: tasks/core-setup.yml
+      - include_tasks: tasks/slack-setup.yml
+      - include_tasks: tasks/dropbox-setup.yml
+      - include_tasks: tasks/kubectl-setup.yml
+      - include_tasks: tasks/productivity-tools.yml
+      - include_tasks: tasks/personal-projects.yml
+      - include_tasks: tasks/node-setup.yml
+      - include_tasks: tasks/npm-packages.yml
+      - include_tasks: tasks/zsh-setup.yml
+      - include_tasks: tasks/nvim-setup.yml
+      - include_tasks: tasks/dotfiles.yml
+      - include_tasks: tasks/pulumi-setup.yml
