@@ -2,7 +2,7 @@
   become: true
   ansible.builtin.file:
     state: absent
-    path: "{{ lookup('env', 'HOME') }}/neovim"
+    path: "{{ lookup('env', 'HOME') }}/neovim/"
   tags:
     - install
     - neovim
