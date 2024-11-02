@@ -1,0 +1,21 @@
+- name: Get latest golang version
+  shell: curl -s 'https://go.dev/dl/?mode=json' | jq -r '.[0].version'
+  register: golang_version
+  tags:
+    - install
+    - golang
+
+- name: Download Golang
+  get_url:
+    url: https://storage.googleapis.com/golang/{{ golang_version.stdout }}.linux-amd64.tar.gz
+    dest: /tmp
+  tags:
+    - install
+    - golang
+
+- name: Extract Golang archive
+  become: true
+  shell: rm -rf /usr/local/go && tar -C /usr/local -xzf /tmp/{{ golang_version.stdout }}.linux-amd64.tar.gz
+  tags:
+    - install
+    - golang

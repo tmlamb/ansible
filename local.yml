@@ -32,3 +32,4 @@
       - include_tasks: tasks/nvim-setup.yml
       - include_tasks: tasks/dotfiles.yml
       - include_tasks: tasks/pulumi-setup.yml
+      - include_tasks: tasks/golang.yml
