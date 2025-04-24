@@ -1,7 +1,8 @@
 - name: Install System Packages 1 (build-essential, cmake, pkg-config)
   become: true
-  apt:
+  community.general.pacman:
     name: ["base-devel"]
+    state: latest
   tags:
     - install
     - neovim
