@@ -4,12 +4,9 @@
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
     personal: "{{ lookup('env', 'HOME') }}/personal"
   pre_tasks:
-  - name: Update Apt
-    become: true
-    apt:
-      force_apt_get: true
+  - name: Update pacman cache
+    community.general.pacman:
       update_cache: true
-      state: present
     tags:
       - install
       - core
@@ -21,6 +18,7 @@
       # - include_tasks: tasks/font-setup.yml
       - include_tasks: tasks/git-setup.yml
       - include_tasks: tasks/core-setup.yml
+      - include_tasks: tasks/yay.yml
       # - include_tasks: tasks/slack-setup.yml
       - include_tasks: tasks/dropbox-setup.yml
       # - include_tasks: tasks/kubectl-setup.yml
