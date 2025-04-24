@@ -5,6 +5,7 @@
     personal: "{{ lookup('env', 'HOME') }}/personal"
   pre_tasks:
   - name: Update pacman cache
+    become: true
     community.general.pacman:
       update_cache: true
     tags:
