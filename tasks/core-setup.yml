@@ -1,38 +1,45 @@
 - name: Install System Packages 1 (build-essential, cmake, pkg-config)
   become: true
   apt:
-    name: ["build-essential", "cmake", "pkg-config"]
+    name: ["base-devel"]
   tags:
     - install
     - neovim
     - core
 
-- name: Install System Packages 2 (unzip, libtool, libtool-bin, gettext)
+- name: Install System Packages
   become: true
-  apt:
-    name: [ "lua5.1", "luarocks", "unzip", "libtool", "libtool-bin", "gettext"]
+  community.general.pacman:
+    name: [ "lua51", "luarocks", "unzip" ]
+    state: latest
   tags:
     - install
     - neovim
     - core
 
-- name: Install System Packages 3 (the rest)
+- name: Install System Packages 2 (the rest)
   become: true
-  apt:
-      name: [ "compton", "curl", "htop", "lsof", "i3", "ninja-build", "g++", "autoconf", "automake", "doxygen", "jq", "dconf-editor", "pavucontrol", "moreutils", "nfs-common", "cifs-utils", "alacritty", "blueman", "ubuntu-mate-desktop" ]
-  tags:
-    - install
-    - neovim
-    - core
-
-- name: dconf i3
-  shell: dconf write /org/mate/desktop/session/required-components/windowmanager "'i3'"
+  community.general.pacman:
+    name: [ "sway", "swaybg", "swayidle", "swaylock", "curl", "btop", "jq" ]
+    state: latest
   tags:
     - install
     - core
 
-- name: dconf i3
-  shell: dconf write /org/mate/desktop/background/show-desktop-icons "false"
+- name: Install Fonts
+  become: true
+  community.general.pacman:
+    name: [ "ttf-meslo-nerd noto-fonts", "noto-fonts-cjk", "noto-fonts-emoji", "noto-fonts-extra" ]
+    state: latest
+  tags:
+    - install
+    - core
+
+- name: Terminal
+  become: true
+  community.general.pacman:
+    name: [ "ghostty" ]
+    state: latest
   tags:
     - install
     - core
