@@ -1,0 +1,5 @@
+- name: Install zen browser AUR
+  shell: yay --sudoloop --noconfirm -S zen-browser-bin
+  tags:
+    - install
+    - dropbox

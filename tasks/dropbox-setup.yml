@@ -1,22 +1,22 @@
-# - name: Download Dropbox Daemon
-#   shell: curl -L --output ~/Downloads/dropbox.tar.gz https://www.dropbox.com/download?plat=lnx.x86_64
-#   tags:
-#     - install
-#     - dropbox
-#
-# - name: Unpack Dropbox
-#   shell: tar xzf ~/Downloads/dropbox.tar.gz -C ~/
-#   tags:
-#     - install
-#     - dropbox
-#
-# - name: Download Dropbox Script
-#   shell: |
-#     curl --create-dirs -Lo ~/.local/bin/dropbox.py https://linux.dropbox.com/packages/dropbox.py \
-#     && chmod +x ~/.local/bin/dropbox.py
-#   tags:
-#     - install
-#     - dropbox
+- name: Download Dropbox Daemon
+  shell: curl -L --output /tmp/dropbox.tar.gz https://www.dropbox.com/download?plat=lnx.x86_64
+  tags:
+    - install
+    - dropbox
+
+- name: Unpack Dropbox
+  shell: tar xzf /tmp/dropbox.tar.gz -C ~/
+  tags:
+    - install
+    - dropbox
+
+- name: Download Dropbox Script
+  shell: |
+    curl --create-dirs -Lo ~/.local/bin/dropbox.py https://linux.dropbox.com/packages/dropbox.py \
+    && chmod +x ~/.local/bin/dropbox.py
+  tags:
+    - install
+    - dropbox
 
 # - name: Remove Dropbox
 #   become: true
@@ -36,21 +36,42 @@
 #     - install
 #     - dropbox
 
-- name: Add Dropbox public key
-  shell: curl -L --output /tmp/dropbox/rpm-public-key.asc https://linux.dropbox.com/fedora/rpm-public-key.asc && gpg --import /tmp/rpm-public-key.asc
-  tags:
-    - install
-    - dropbox
+# - name: Remove dropbox
+#   ansible.builtin.file:
+#     state: absent
+    # path: "/tmp/dropbox/"
+  # tags:
+    # - install
+    # - dropbox
 
-- name: Install dropdox AUR
-  community.general.pacman:
-    name: dropbox
-    state: latest
-    executable: yay
-    extra_args: --builddir /var/cache/yay
-  tags:
-    - install
-    - dropbox
+# - name: Add Dropbox public key
+  # become: true
+  # shell: curl -L --output /tmp/rpm-public-key.asc https://linux.dropbox.com/fedora/rpm-public-key.asc && gpg --import /tmp/rpm-public-key.asc
+  # tags:
+    # - install
+    # - dropbox
+
+# - name: Clone dropbox AUR
+  # ansible.builtin.git:
+    # repo: "https://aur.archlinux.org/dropbox.git"
+    # dest: "/tmp/dropbox"
+    # update: true
+  # tags:
+    # - install
+    # - dropbox
+
+# - name: Install dropbox
+  # shell: "cd /tmp/dropbox && makepkg -si --noconfirm"
+  # tags:
+    # - install
+    # - dropbox
+# 
+
+# - name: Install dropdox AUR
+#   shell: echo y | yay --answerdiff None --answerclean None -mflags "--noconfirm" dropbox
+#   tags:
+#     - install
+#     - dropbox
 
 # - name: Build neovim
 #   shell: "cd {{ lookup('env', 'HOME') }}/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo"

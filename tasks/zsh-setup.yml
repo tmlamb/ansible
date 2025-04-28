@@ -1,6 +1,8 @@
 - name: Install ZSH
   become: true
-  apt: name=zsh
+  community.general.pacman:
+    name: ["zsh"]
+    state: latest
   tags: &tags_for_zsh_tasks [ 'install', 'productivity', 'dotfiles', 'zsh' ]
 
 - name: Find zsh install location

@@ -1,7 +1,8 @@
 - name: Install nodejs and npm
   become: true
-  apt:
+  community.general.pacman:
     name: ["nodejs", "npm"]
+    state: latest
   tags:
     - install
     - node
@@ -40,7 +41,7 @@
     - node
 
 - name: Install correct version of Node
-  shell: N_PREFIX=~/.local ~/.local/.npm-global/bin/n 18
+  shell: N_PREFIX=~/.local ~/.local/.npm-global/bin/n 22
   tags:
     - install
     - node

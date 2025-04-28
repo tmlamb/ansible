@@ -1,4 +1,5 @@
 - hosts: localhost
+  gather_facts: yes
   vars:
     source_key: "./.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
@@ -21,14 +22,16 @@
       - include_tasks: tasks/core-setup.yml
       - include_tasks: tasks/yay.yml
       # - include_tasks: tasks/slack-setup.yml
-      - include_tasks: tasks/dropbox-setup.yml
+      # - include_tasks: tasks/dropbox-setup.yml
+      - include_tasks: tasks/aur.yml
       # - include_tasks: tasks/kubectl-setup.yml
-      # - include_tasks: tasks/productivity-tools.yml
-      # - include_tasks: tasks/personal-projects.yml
-      # - include_tasks: tasks/node-setup.yml
-      # - include_tasks: tasks/npm-packages.yml
-      # - include_tasks: tasks/zsh-setup.yml
-      # - include_tasks: tasks/nvim-setup.yml
-      # - include_tasks: tasks/dotfiles.yml
+      - include_tasks: tasks/productivity-tools.yml
+      - include_tasks: tasks/docker.yml
+      - include_tasks: tasks/personal-projects.yml
+      - include_tasks: tasks/node-setup.yml
+      - include_tasks: tasks/npm-packages.yml
+      - include_tasks: tasks/zsh-setup.yml
+      - include_tasks: tasks/nvim-setup.yml
+      - include_tasks: tasks/dotfiles.yml
       # - include_tasks: tasks/pulumi-setup.yml
       # - include_tasks: tasks/golang.yml

@@ -1,5 +1,4 @@
 - name: Remove yay
-  become: true
   ansible.builtin.file:
     state: absent
     path: "/tmp/yay/"
@@ -8,17 +7,15 @@
     - yay
 
 - name: Clone yay AUR
-  become: true
   ansible.builtin.git:
     repo: "https://aur.archlinux.org/yay.git"
-    dest: "/tmp/dropbox"
+    dest: "/tmp/yay"
     update: true
   tags:
     - install
     - dropbox
 
 - name: Install yay
-  become: true
   shell: "cd /tmp/yay && makepkg -si --noconfirm"
   tags:
     - install

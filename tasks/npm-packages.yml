@@ -1,6 +1,6 @@
-- name: Install Yarn
+- name: Install pnpm
   npm:
-    name: yarn
+    name: pnpm
     global: yes
   tags:
     - install

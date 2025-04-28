@@ -1,0 +1,21 @@
+- name: Install packages
+  become: true
+  community.general.pacman:
+    name: [ "docker", "docker-compose" ]
+    state: latest
+  tags:
+    - install
+    - productivity
+
+- name: Ensure group "docker" exists
+  become: true
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Adding user to docker group
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    groups: docker
+    append: yes

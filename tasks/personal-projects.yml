@@ -1,22 +1,22 @@
-- name: Probable Pitchers exists
+- name: Probable Pitcher exists
   stat:
-    path: "{{ personal }}/probable-pitchers"
+    path: "{{ personal }}/probable-pitcher"
   register: probablepath
   tags:
     - install
     - personal-project
-- name: Personal Project Probable Pitchers
+- name: Personal Project Probable Pitcher
   ansible.builtin.git:
-    repo: 'git@github.com:tmlamb/probable-pitchers.git'
+    repo: 'git@github.com:tmlamb/probable-pitcher.git'
     accept_newhostkey: true
     bare: true
-    dest: "{{ personal }}/probable-pitchers"
+    dest: "{{ personal }}/probable-pitcher"
   tags:
     - install
     - personal-project
   when: probablepath.stat.exists == False
-- name: Probable Pitchers Main Checkout
-  shell: cd ~/personal/probable-pitchers && git fetch && git worktree add main main
+- name: Probable Pitcher Main Checkout
+  shell: cd ~/personal/probable-pitcher && git fetch && git worktree add main main
   tags:
     - install
     - personal-project

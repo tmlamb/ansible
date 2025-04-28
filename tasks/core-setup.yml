@@ -1,7 +1,7 @@
 - name: Install base-devel
   become: true
   community.general.pacman:
-    name: ["base-devel"]
+    name: ["base-devel", "cmake", "linux-firmware"]
     state: latest
   tags:
     - install
@@ -11,17 +11,18 @@
 - name: Install System Packages
   become: true
   community.general.pacman:
-    name: [ "lua51", "luarocks", "unzip" ]
+    name: [ "lua51", "luarocks", "unzip", "alsa-utils", "clang", "openssh" ]
     state: latest
   tags:
     - install
     - neovim
     - core
 
+# qt5-wayland: compat for keepassxc in wayland
 - name: Install System Packages 2 (the rest)
   become: true
   community.general.pacman:
-    name: [ "sway", "swaybg", "swayidle", "swaylock", "curl", "btop", "jq" ]
+    name: [ "sway", "swaybg", "swayidle", "swaylock", "curl", "btop", "jq", "qt5-wayland", "pipewire", "pipewire-audio", "pipewire-pulse", "bluez", "bluez-utils", "fwupd" ]
     state: latest
   tags:
     - install
