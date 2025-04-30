@@ -1,7 +1,7 @@
 - name: Install packages
   become: true
   community.general.pacman:
-    name: [ "tmux", "fzf", "gimp", "xclip", "tldr", "ripgrep", "keepassxc", "fd", "brightnessctl", "grim", "imv", "pipewire", "pipewire-audio", "pipewire-pulse" ]
+    name: [ "tmux", "fzf", "gimp", "xclip", "tldr", "ripgrep", "keepassxc", "fd", "brightnessctl", "grim", "imv", "firefox", "pulumi" ]
     state: latest
   tags:
     - install
