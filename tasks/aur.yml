@@ -3,3 +3,9 @@
   tags:
     - install
     - dropbox
+
+- name: Install spotify-edge AUR
+  shell: yay --sudoloop --noconfirm -S spotify-edge
+  tags:
+    - install
+    - dropbox
