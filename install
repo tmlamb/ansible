@@ -6,3 +6,9 @@ sudo apt-get update -y
 sudo apt-get install -y curl git software-properties-common ansible
 
 #ansible-playbook local.yml --ask-become-pass --ask-vault-pass
+
+# //0.0.0.0/MediaShare /mnt/scallion cifs uid=1000,rw,suid,credentials=/home/tom/.scallion_creds, 0 0
+# username=XXX
+# password=XXX
+
+
