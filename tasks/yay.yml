@@ -13,10 +13,37 @@
     update: true
   tags:
     - install
-    - dropbox
+    - yay
 
-- name: Install yay
-  shell: "cd /tmp/yay && makepkg -si --noconfirm"
+- name: Build yay artifact
+  ansible.builtin.command: "makepkg -cf --noconfirm"
+  args:
+    chdir: "/tmp/yay"
+  become: false # Run as user, no sudo needed purely for building
   tags:
     - install
-    - dropbox
+    - yay
+
+- name: Find built package
+  ansible.builtin.find:
+    paths: "/tmp/yay"
+    patterns: "yay-*.pkg.tar.zst"
+  register: yay_package_file
+  tags:
+    - install
+    - yay
+
+- name: Install yay locally
+  community.general.pacman:
+    name: "{{ yay_package_file.files[0].path }}"
+    state: present
+  become: true # Ansible handles the sudo password here
+  tags:
+    - install
+    - yay
+
+# - name: Install yay
+#   shell: "cd /tmp/yay && makepkg -si --noconfirm"
+#   tags:
+#     - install
+#     - yay

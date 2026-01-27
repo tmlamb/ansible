@@ -1,11 +1,29 @@
-- name: Install zen browser AUR
-  shell: yay --sudoloop --noconfirm -S zen-browser-bin
+- name: Install AUR Packages
+  include_tasks: install_aur_builder.yml
+  loop:
+    - zen-browser-bin
+    - dropbox
+    - dropbox-cli
   tags:
     - install
-    - dropbox
+    - aur_packages
 
-- name: Install spotify-edge AUR
-  shell: yay --sudoloop --noconfirm -S spotify-edge
-  tags:
-    - install
-    - dropbox
+# - name: Install zen browser AUR
+#   shell: yay --sudoloop --noconfirm -S zen-browser-bin
+#   tags:
+#     - install
+#
+# - name: Install spotify-edge AUR
+#   shell: yay --sudoloop --noconfirm -S spotify-edge
+#   tags:
+#     - install
+#
+# - name: Install dropbox AUR
+#   shell: yay --sudoloop --noconfirm -S dropbox
+#   tags:
+#     - install
+#
+# - name: Install dropbox AUR
+#   shell: yay --sudoloop --noconfirm -S dropbox-cli
+#   tags:
+#     - install

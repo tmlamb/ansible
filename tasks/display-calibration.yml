@@ -1,0 +1,20 @@
+- name: Create ICC directory
+  ansible.builtin.file:
+    # Use ansible_user_dir, it is cleaner than looking up env variables
+    path: "{{ ansible_user_dir }}/.local/share/icc"
+    state: directory
+    mode: '0755'
+
+- name: Download ICC profile
+  ansible.builtin.get_url:
+    url: "https://www.notebookcheck.net/uploads/tx_nbc2/BOE_CQ_______NE135FBM_N41_03.icm"
+    dest: "{{ ansible_user_dir }}/.local/share/icc/BOE_CQ_______NE135FBM_N41_03.icm"
+    mode: '0644'
+  register: icc_download
+
+- name: Reload Sway
+  ansible.builtin.command: swaymsg reload
+  # Only run if the download actually changed something
+  when: icc_download.changed
+  # Ignore errors if sway isn't running (e.g. during initial install)
+  ignore_errors: true

@@ -1,0 +1,24 @@
+- name: Copy and decrypt .scallion_creds to home directory
+  ansible.builtin.copy:
+    src: .scallion_creds
+    dest: "{{ lookup('env', 'HOME') }}/.scallion_creds"
+    mode: "0400"
+
+- name: Ensure mount directory exists
+  ansible.builtin.file:
+    path: /mnt/scallion
+    state: directory
+    mode: "0755" # Adjust permissions as needed
+    owner: tom
+    group: tom
+
+- name: Ensure MediaShare is in fstab
+  become: true
+  ansible.posix.mount:
+    path: /mnt/scallion
+    src: //192.168.1.157/MediaShare
+    fstype: cifs
+    opts: uid=1000,rw,suid,credentials=/home/tom/.scallion_creds
+    passno: '0'
+    dump: '0'
+    state: mounted

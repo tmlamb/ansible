@@ -1,0 +1,53 @@
+---
+- name: "Clean build directory for {{ item }}"
+  ansible.builtin.file:
+    path: "/tmp/{{ item }}"
+    state: absent
+
+- name: "Clone {{ item }} AUR repo"
+  ansible.builtin.git:
+    repo: "https://aur.archlinux.org/{{ item }}.git"
+    dest: "/tmp/{{ item }}"
+    update: true
+  become: false
+
+# 1. READ dependencies from the PKGBUILD
+# We use sed to strip version constraints (like >=1.0) to ensure we just get the package names
+- name: "Parse dependencies for {{ item }}"
+  shell: |
+    source PKGBUILD
+    echo "${depends[@]}" "${makedepends[@]}" | sed 's/[><=][^ ]*//g'
+  args:
+    chdir: "/tmp/{{ item }}"
+    executable: /bin/bash
+  register: pkgbuild_deps
+  changed_when: false
+  become: false
+
+# 2. INSTALL dependencies
+- name: "Install dependencies for {{ item }}"
+  community.general.pacman:
+    name: "{{ pkgbuild_deps.stdout.split() }}"
+    state: present
+    update_cache: yes
+  become: true
+  when: pkgbuild_deps.stdout | length > 0
+
+# 3. BUILD
+- name: "Build {{ item }}"
+  ansible.builtin.command: "makepkg -cf --noconfirm --nodeps"
+  args:
+    chdir: "/tmp/{{ item }}"
+  become: false
+
+# 4. FIND (Expanded pattern to catch .xz or .zst)
+- name: "Find built {{ item }} package"
+  ansible.builtin.find:
+    paths: "/tmp/{{ item }}"
+    patterns: "*.pkg.tar.*"
+  register: built_package_file
+
+# 5. INSTALL (Explicit command to ensure installation)
+- name: "Install {{ item }} via Pacman"
+  ansible.builtin.command: "pacman -U --noconfirm {{ built_package_file.files[0].path }}"
+  become: true

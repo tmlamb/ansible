@@ -1,86 +1,13 @@
-- name: Download Dropbox Daemon
-  shell: curl -L --output /tmp/dropbox.tar.gz https://www.dropbox.com/download?plat=lnx.x86_64
+# See https://wiki.archlinux.org/title/Dropbox#Prevent_automatic_updates
+- name: Remove .dropbox-dist
+  become: true
+  shell: "rm -rf {{ lookup('env', 'HOME') }}/.dropbox-dist"
   tags:
     - install
     - dropbox
 
-- name: Unpack Dropbox
-  shell: tar xzf /tmp/dropbox.tar.gz -C ~/
+- name: Create readonly .dropbox-dist
+  shell: "install -dm0 {{ lookup('env', 'HOME') }}/.dropbox-dist"
   tags:
     - install
     - dropbox
-
-- name: Download Dropbox Script
-  shell: |
-    curl --create-dirs -Lo ~/.local/bin/dropbox.py https://linux.dropbox.com/packages/dropbox.py \
-    && chmod +x ~/.local/bin/dropbox.py
-  tags:
-    - install
-    - dropbox
-
-# - name: Remove Dropbox
-#   become: true
-#   ansible.builtin.file:
-#     state: absent
-#     path: "/tmp/dropbox/"
-#   tags:
-#     - install
-#     - dropbox
-#
-# - name: Clone Dropbox AUR
-#   ansible.builtin.git:
-#     repo: "https://aur.archlinux.org/dropbox.git"
-#     dest: "/tmp/dropbox"
-#     update: true
-#   tags:
-#     - install
-#     - dropbox
-
-# - name: Remove dropbox
-#   ansible.builtin.file:
-#     state: absent
-    # path: "/tmp/dropbox/"
-  # tags:
-    # - install
-    # - dropbox
-
-# - name: Add Dropbox public key
-  # become: true
-  # shell: curl -L --output /tmp/rpm-public-key.asc https://linux.dropbox.com/fedora/rpm-public-key.asc && gpg --import /tmp/rpm-public-key.asc
-  # tags:
-    # - install
-    # - dropbox
-
-# - name: Clone dropbox AUR
-  # ansible.builtin.git:
-    # repo: "https://aur.archlinux.org/dropbox.git"
-    # dest: "/tmp/dropbox"
-    # update: true
-  # tags:
-    # - install
-    # - dropbox
-
-# - name: Install dropbox
-  # shell: "cd /tmp/dropbox && makepkg -si --noconfirm"
-  # tags:
-    # - install
-    # - dropbox
-# 
-
-# - name: Install dropdox AUR
-#   shell: echo y | yay --answerdiff None --answerclean None -mflags "--noconfirm" dropbox
-#   tags:
-#     - install
-#     - dropbox
-
-# - name: Build neovim
-#   shell: "cd {{ lookup('env', 'HOME') }}/neovim && make CMAKE_BUILD_TYPE=RelWithDebInfo"
-#   tags:
-#     - install
-#     - neovim
-# - name: Install neovim
-#   become: true
-#   shell: "cd {{ lookup('env', 'HOME') }}/neovim && make install"
-#   tags:
-#     - install
-#     - neovim

@@ -22,7 +22,7 @@
 - name: Install System Packages 2 (the rest)
   become: true
   community.general.pacman:
-    name: [ "sway", "swaybg", "swayidle", "swaylock", "curl", "btop", "jq", "qt5-wayland", "qt6-wayland", "pipewire", "pipewire-audio", "pipewire-pulse", "bluez", "bluez-utils", "bluez-deprecated-tools", "fwupd", "xdg-desktop-portal-wlr", "docker-buildx", "cifs-utils" ]
+    name: [ "sway", "swaybg", "swayidle", "swaylock", "curl", "wget", "btop", "jq", "qt5-wayland", "qt6-wayland", "pipewire", "pipewire-audio", "pipewire-pulse", "bluez", "bluez-utils", "bluez-deprecated-tools", "fwupd", "xdg-desktop-portal-wlr", "docker-buildx", "cifs-utils", "wmenu" ]
     state: latest
   tags:
     - install
@@ -45,3 +45,21 @@
   tags:
     - install
     - core
+
+- name: Ensure systemd sleep config directory exists
+  ansible.builtin.file:
+    path: /etc/systemd/sleep.conf.d
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Disable hibernation configuration
+  ansible.builtin.copy:
+    dest: /etc/systemd/sleep.conf.d/00-disable-hibernation.conf
+    content: |
+      [Sleep]
+      AllowHibernation=no
+      AllowSuspendThenHibernate=no
+      AllowHybridSleep=no
+    mode: '0644'
+  become: true
