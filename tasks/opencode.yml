@@ -1,0 +1,5 @@
+- name: Download opencode binary
+  shell: curl -fsSL https://opencode.ai/install | bash
+  tags:
+    - install
+    - opencode

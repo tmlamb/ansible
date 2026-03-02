@@ -34,4 +34,5 @@
       - include_tasks: tasks/minecraft.yml
       - include_tasks: tasks/display-calibration.yml
       - include_tasks: tasks/scallion.yml
+      - include_tasks: tasks/opencode.yml
       # - include_tasks: tasks/golang.yml

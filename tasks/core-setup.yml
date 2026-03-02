@@ -22,7 +22,7 @@
 - name: Install System Packages 2 (the rest)
   become: true
   community.general.pacman:
-    name: [ "sway", "swaybg", "swayidle", "swaylock", "curl", "wget", "btop", "jq", "qt5-wayland", "qt6-wayland", "pipewire", "pipewire-audio", "pipewire-pulse", "bluez", "bluez-utils", "bluez-deprecated-tools", "fwupd", "xdg-desktop-portal-wlr", "docker-buildx", "cifs-utils", "wmenu" ]
+    name: [ "sway", "swaybg", "swayidle", "swaylock", "curl", "wget", "btop", "jq", "qt5-wayland", "qt6-wayland", "pipewire", "pipewire-audio", "pipewire-pulse", "bluez", "bluez-utils", "bluez-deprecated-tools", "fwupd", "xdg-desktop-portal-wlr", "docker-buildx", "cifs-utils", "wmenu", "less" ]
     state: latest
   tags:
     - install
