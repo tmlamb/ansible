@@ -32,7 +32,7 @@
     - personal-project
   when: probablepath.stat.exists == False
 - name: Probable Pitcher Main Checkout
-  shell: cd ~/personal/probable-pitcher && git fetch && git worktree add main main
+  shell: cd {{ personal }}/probable-pitcher && git fetch && git worktree add main main
   tags:
     - install
     - personal-project
@@ -72,7 +72,7 @@
     - personal-project
   when: altpath.stat.exists == False
 - name: Activity Log Tracker Main Checkout
-  shell: cd ~/personal/activity-log-tracker && git fetch && git worktree add main main
+  shell: cd {{ personal }}/activity-log-tracker && git fetch && git worktree add main main
   tags:
     - install
     - personal-project

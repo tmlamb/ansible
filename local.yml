@@ -3,7 +3,7 @@
   vars:
     source_key: "./.ssh/id_rsa"
     dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
-    personal: "{{ lookup('env', 'HOME') }}/personal"
+    personal: "{{ lookup('env', 'HOME') }}/workspaces"
   pre_tasks:
   - name: Update pacman cache
     become: true
