@@ -1,6 +1,6 @@
 - name: Probable Pitcher exists
   stat:
-    path: "{{ personal }}/probable-pitcher"
+    path: "{{ personal }}/probable-pitcher/main"
   register: probablepath
   tags:
     - install
@@ -10,7 +10,23 @@
     repo: 'git@github.com:tmlamb/probable-pitcher.git'
     accept_newhostkey: true
     bare: true
-    dest: "{{ personal }}/probable-pitcher"
+    dest: "{{ personal }}/probable-pitcher/.bare"
+  tags:
+    - install
+    - personal-project
+  when: probablepath.stat.exists == False
+- name: Probable Pitcher gitdir pointer
+  shell: 'echo "gitdir: ./.bare" > {{ personal }}/probable-pitcher/.git'
+  tags:
+    - install
+    - personal-project
+  when: probablepath.stat.exists == False
+- name: Probable Pitcher remote fetch config
+  community.general.git_config:
+    repo: "{{ personal }}/probable-pitcher/.bare"
+    scope: local
+    name: remote.origin.fetch
+    value: '+refs/heads/*:refs/remotes/origin/*'
   tags:
     - install
     - personal-project
@@ -24,7 +40,7 @@
 
 - name: Activity Log Tracker exists
   stat:
-    path: "{{ personal }}/activity-log-tracker"
+    path: "{{ personal }}/activity-log-tracker/main"
   register: altpath
   tags:
     - install
@@ -34,7 +50,23 @@
     repo: 'git@github.com:tmlamb/activity-log-tracker.git'
     accept_newhostkey: true
     bare: true
-    dest: "{{ personal }}/activity-log-tracker"
+    dest: "{{ personal }}/activity-log-tracker/.bare"
+  tags:
+    - install
+    - personal-project
+  when: altpath.stat.exists == False
+- name: Activity Log Tracker gitdir pointer
+  shell: 'echo "gitdir: ./.bare" > {{ personal }}/activity-log-tracker/.git'
+  tags:
+    - install
+    - personal-project
+  when: altpath.stat.exists == False
+- name: Activity Log Tracker remote fetch config
+  community.general.git_config:
+    repo: "{{ personal }}/activity-log-tracker/.bare"
+    scope: local
+    name: remote.origin.fetch
+    value: '+refs/heads/*:refs/remotes/origin/*'
   tags:
     - install
     - personal-project
