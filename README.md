@@ -18,3 +18,19 @@ imv -f image.jpeg
 # Viewing images in a random order
 find . -type f -name "*.png" | shuf | imv
 ```
+
+## wl-clipboard
+
+```bash
+# Copying text to the clipboard
+echo "Hello, World!" | wl-copy
+
+# Pasting text from the clipboard
+wl-paste
+
+# Copying an image to the clipboard
+cat image.png | wl-copy
+
+# Pasting an image from the clipboard
+wl-paste > output_image.png
+```
